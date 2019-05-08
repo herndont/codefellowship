@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Collection;
+import java.util.Date;
 
 @Entity
 public class ApplicationUser implements UserDetails {
@@ -18,7 +19,7 @@ public class ApplicationUser implements UserDetails {
     private String password;
     private String firstName;
     private String lastName;
-    private int dateOfBirth;
+    private Date dateOfBirth;
     private String bio;
 
     public long getId() {
@@ -84,11 +85,11 @@ public class ApplicationUser implements UserDetails {
         this.lastName = lastName;
     }
 
-    public int getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(int firstName) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
