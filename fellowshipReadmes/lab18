@@ -1,0 +1,72 @@
+# CodeFellowship (day 3)
+
+### Lab 18
+
+    This lab is the third in a week of incremental labs that will build a redit style application with user
+    accounts, splash page, and a sign up page.
+    
+### Challenge
+    Lab 16 Feature tasks continued
+     - The site should have a splash page at the root route (/) that contains basic information about the site, as well as
+       a link to the “sign up” page.    
+     - An `ApplicationUser` should have a `username`, `password` (will be hashed using BCrypt), `firstName`, `lastName`,
+      `dateOfBirth`, `bio`, and any other fields you think are useful.
+     - The site should allow users to create an ApplicationUser on the “sign up” page. (For now, there is no such thing as login.)
+     - Your Controller should have an `@Autowired private PasswordEncoder passwordEncoder`; and use that to run
+      `passwordEncoder.encode(password)` before saving the password into the new user.
+     - The site should have a page which allows viewing the data about a single ApplicationUser, at a route like /users/{id}.
+     - This should include a default profile picture, which is the same for every user, and their basic information.
+     - The site should be well-styled and attractive.
+     - The site should use reusable templates for its information. (At a minimum, it should have one Thymeleaf fragment
+       that is used on multiple pages.)
+     - The site should have a non-whitelabel error handling page that lets the user know, at minimum, the error code and
+       a brief message about what went wrong.
+     - The site should contain integration testing. At a minimum, there should be tests to ensure basic functionality 
+       for the splash page and the sign up page.
+       
+    Lab 17 Feature tasks
+    - Allow users to log in to CodeFellowship and create posts.
+    - Using the above cheat sheet, add the ability for users to log in to your app.
+        -Upon logging in, users should be taken to a /myprofile route that displays their information.
+    - Ensure that your homepage, login, and registration routes are accessible to non-logged in users. All other routes should be limited to logged-in users.
+    - Ensure that user registration also logs users into your app automatically.
+    - Add a Post entity to your app.
+        - A Post has a body and a createdAt timestamp.
+        - A logged-in user should be able to create a Post, and a post should belong to the user that created it.
+            -hint: this is a relationship between two pieces of data
+    - A user’s posts should be visible on their profile page.
+    - When a user is logged in, the app should display the user’s username on every page (probably in the heading). 
+       
+    Lab 18 Feature tasks
+    - Ensure that users can’t perform SQL injection or HTML injection with their posts.
+    - Allow users to follow other users. Following a user means that their posts show up in the logged-in user’s feed, 
+      where they can see what all of their followed users have posted recently.
+        - Ensure there is some way (like a users index page) that a user can discover other users on the service.
+        - On a user profile page that does NOT belong to the currently logged-in user, display a “Follow” button. When 
+          a user clicks that follow button, the logged-in user is now following the viewed-profile-page user.
+            - note: this will require a self-join on ApplicationUsers.
+    - A user can visit a url (like /feed) to view all of the posts from the users that they follow.
+        - Each post should have a link to the user profile of the user who wrote the post.
+
+
+### Testing
+    Lab 16 Testing
+    - Can successfully instantiate an empty tree
+    - Can successfully instantiate a tree with a single root node
+    - Can successfully add a left child and right child to a single root node
+    - Can successfully return a collection from a preorder traversal
+    - Can successfully return a collection from an inorder traversal
+    - Can successfully return a collection from a postorder traversal
+    
+    Lab 17 Testing
+    (No changes from previous lab)
+    
+    Lab 18 Testing
+        (No changes from previous lab)
+    
+### Approach & Efficiency
+
+    Honestly, pretty much just following the lead of Kellen in the demo examples.
+
+### API's 
+

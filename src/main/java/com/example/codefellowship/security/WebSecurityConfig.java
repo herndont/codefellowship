@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import static org.hibernate.criterion.Restrictions.and;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -40,7 +42,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .cors().disable()
                 .csrf().disable()
+
+                //setup authorization pages
                 .authorizeRequests()
-                .antMatchers("/*").permitAll();
+                .antMatchers("/*").permitAll()
+
+                //configure login
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/perform_login")
+                .defaultSuccessUrl("/bugfarm")
+                .failureUrl("/login-error")
+
+                //configure logout
+                .and()
+                .logout()
+                .logoutUrl("/perform_logout")
+                .logoutSuccessUrl("/login")
+                .deleteCookies("JSESSIONID")
+                ;
     }
 }

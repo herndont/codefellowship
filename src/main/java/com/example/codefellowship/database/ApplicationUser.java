@@ -1,13 +1,17 @@
 package com.example.codefellowship.database;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class ApplicationUser implements UserDetails {
@@ -15,12 +19,16 @@ public class ApplicationUser implements UserDetails {
     @GeneratedValue
     private long id;
 
+    @Column(unique = true)
     private String username;
+
     private String password;
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
     private String bio;
+
+    private boolean isAdmin;
 
     public long getId() {
         return this.id;
@@ -28,7 +36,12 @@ public class ApplicationUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> list = new ArrayList<>();
+
+        if (this.username.equals("admin")) {
+            list.add(new SimpleGrantedAuthority(ROLE_ADMIN));
+        }
+        return list;
     }
 
     @Override
