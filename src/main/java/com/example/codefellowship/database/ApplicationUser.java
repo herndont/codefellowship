@@ -38,9 +38,9 @@ public class ApplicationUser implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> list = new ArrayList<>();
 
-        if (this.username.equals("admin")) {
-            list.add(new SimpleGrantedAuthority(ROLE_ADMIN));
-        }
+//        if (this.username.equals("admin")) {
+//            list.add(new SimpleGrantedAuthority(ROLE_ADMIN));
+//        }
         return list;
     }
 

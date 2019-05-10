@@ -1,5 +1,6 @@
 package com.example.codefellowship.controllers;
 
+import com.example.codefellowship.UserNotFoundException;
 import com.example.codefellowship.database.ApplicationUser;
 import com.example.codefellowship.database.ApplicationUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,13 +8,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 @Controller
 public class UserAccountController {
@@ -40,15 +42,18 @@ public class UserAccountController {
             @RequestParam String password,
             @RequestParam String firstName,
             @RequestParam String lastName,
-            @RequestParam Date dateOfBirth,
+            @RequestParam String dateOfBirth,
             @RequestParam String bio
-    ){
+    ) throws ParseException {
         ApplicationUser user = new ApplicationUser();
         user.setUsername(username);
         user.setPassword(encoder.encode(password));
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        user.setDateOfBirth(dateOfBirth);
+
+        Date dateObj=new SimpleDateFormat("dd-MM-yyyy").parse(dateOfBirth);
+
+        user.setDateOfBirth(dateObj);
         user.setBio(bio);
 
         userRepo.save(user);
@@ -72,4 +77,16 @@ public class UserAccountController {
     public String getLoginError() {
         return "The Username or Password that you have used is incorrect";
     }
+
+    @GetMapping ("/userInfo/{id}")
+    public String getUserInfo(@PathVariable long id, Model model) {
+        Optional<ApplicationUser> currentUser = userRepo.findById(id);
+        if (currentUser.isPresent()) {
+            model.addAttribute("userInfo", currentUser.get());
+            return "userInfo";
+        } else {
+            throw new UserNotFoundException();
+        }
+    }
+
 }
