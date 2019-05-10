@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>LogIn</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div>
+    <form action="/login" method="post">
+        <input type="text" name="username" required placeholder="Username"/>
+        <input type="password" name="password" required placeholder="Password"/>
+        <button type="submit">LogIn</button>
+    </form>
+</div>
+</body>
+</html>

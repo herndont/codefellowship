@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Information</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+
+<div>
+
+    <p>The following is the information associated with:</p>
+    <p th:text="${userInfo.firstName}"/>
+
+    <ul>
+        <li><img src=""></li>
+        <li th:text="${userInfo.username}"/>
+        <li th:text="${userInfo.firstName}"/>
+        <li th:text="${userInfo.lastName}"/>
+        <li th:text="${userInfo.dateOfBirth}"/>
+        <li th:text="${userInfo.bio}"/>
+    </ul>
+<!--    create a form for posting on here... this is from lab17-->
+
+
+
+
+
+<!--    <table>-->
+<!--        <th>-->
+<!--            <tr> type = "text" </tr>-->
+<!--        </th>-->
+
+<!--    </table>-->
+</div>
+
+</body>
+</html>
