@@ -3,6 +3,8 @@ package com.example.codefellowship.controllers;
 import com.example.codefellowship.UserNotFoundException;
 import com.example.codefellowship.database.ApplicationUser;
 import com.example.codefellowship.database.ApplicationUserRepository;
+import com.example.codefellowship.database.Post;
+import com.example.codefellowship.database.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -22,6 +25,10 @@ public class UserAccountController {
 
     @Autowired
     ApplicationUserRepository userRepo;
+
+    @Autowired
+    PostRepository repoPost;
+
 
     @Autowired
     PasswordEncoder encoder;
@@ -65,11 +72,20 @@ public class UserAccountController {
         return new RedirectView("/");
     }
 
-    // login
+    // login.html
 
     @GetMapping("/login")
     public String getLogin() {
         return "login";
+    }
+
+    @PostMapping("/login")
+    public RedirectView loggedIn(@RequestParam String username, @RequestParam String password) {
+        ApplicationUser userInfo = userRepo.findByUsername(username);
+        if (encoder.matches(password, userInfo.getPassword())) {
+            return new RedirectView("userInfo/" + userInfo.getId());
+        }
+        return new RedirectView("/signup");
     }
 
     @GetMapping("/login-error")
@@ -83,6 +99,10 @@ public class UserAccountController {
         Optional<ApplicationUser> currentUser = userRepo.findById(id);
         if (currentUser.isPresent()) {
             model.addAttribute("userInfo", currentUser.get());
+
+            List<Post> posts = (List<Post>) this.repoPost.findAll();
+
+            model.addAttribute(posts);
             return "userInfo";
         } else {
             throw new UserNotFoundException();
