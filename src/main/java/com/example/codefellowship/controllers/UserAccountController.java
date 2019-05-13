@@ -100,9 +100,9 @@ public class UserAccountController {
         if (currentUser.isPresent()) {
             model.addAttribute("userInfo", currentUser.get());
 
-            List<Post> posts = (List<Post>) this.repoPost.findAll();
-
-            model.addAttribute(posts);
+//            List<Post> posts = (List<Post>) this.repoPost.findAll();
+//
+//            model.addAttribute(posts);
             return "userInfo";
         } else {
             throw new UserNotFoundException();

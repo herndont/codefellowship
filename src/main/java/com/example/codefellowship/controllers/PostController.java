@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Calendar;
 import java.util.Date;
 
 
 @Controller
 @RequestMapping("/post")
 public class PostController {
+
     @Autowired
     PostRepository repoPost;
 
@@ -22,13 +24,12 @@ public class PostController {
     public ModelAndView createPost(
             @RequestParam String username,
             @RequestParam String content,
-            @RequestParam Date timeStamp,
             @RequestParam String userID
     ) {
         Post post = new Post();
         post.username = username;
         post.content = content;
-        post.timeStamp = timeStamp;
+        post.timeStamp = new Date();
         post.userID = Long.parseLong(userID);
 
         repoPost.save(post);

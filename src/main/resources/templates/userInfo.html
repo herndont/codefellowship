@@ -29,9 +29,10 @@
 <section>
     <h2>Discussion Board</h2>
 
-    <form action="/userInfo/create" method="post">
+    <form action="/post/create" method="post">
         <input type="text" placeholder="Username" name="username">
         <input type="text" placeholder="Content" name="content">
+        <input type="hidden" th:value="${userInfo.id}" name="userID">
         <button type="submit">Post</button>
     </form>
 
@@ -46,7 +47,7 @@
             <tr th:each="post : ${postList}">
                 <td th:text = "${post.username}"></td>
                 <td th:text = "${post.content"></td>
-                <td th:text = "${post.userId}"></td>
+                <td th:text = "${post.userID}"></td>
             </tr>
         </tbody>
     </table>
@@ -54,4 +55,10 @@
 </section>
 
 </body>
+
+<script>
+    img{
+    width: 10%;
+    }
+</script>
 </html>
