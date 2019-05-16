@@ -5,35 +5,60 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+<nav>
+    <a href="/signup">Signup</a>
+    <a href="/login">Login</a>
+</nav>
 
 
 <div>
 
-    <p>The following is the information associated with:</p>
-    <p th:text="${userInfo.firstName}"/>
+   <h1 th:text="${userInfo.firstName}"/>
 
     <ul>
-        <li><img src=""></li>
+        <li><img th:src="@{/userAvatar.png}"/></li>
         <li th:text="${userInfo.username}"/>
         <li th:text="${userInfo.firstName}"/>
         <li th:text="${userInfo.lastName}"/>
         <li th:text="${userInfo.dateOfBirth}"/>
         <li th:text="${userInfo.bio}"/>
     </ul>
-<!--    create a form for posting on here... this is from lab17-->
-<!--    Posting should live within the user interface-->
 
-
-
-
-
-<!--    <table>-->
-<!--        <th>-->
-<!--            <tr> type = "text" </tr>-->
-<!--        </th>-->
-
-<!--    </table>-->
 </div>
 
+<section>
+    <h2>Discussion Board</h2>
+
+    <form action="/post/create" method="post">
+        <input type="text" placeholder="Username" name="username">
+        <input type="text" placeholder="Content" name="content">
+        <input type="hidden" th:value="${userInfo.id}" name="userID">
+        <button type="submit">Post</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Content</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="post : ${postList}">
+                <td th:text = "${post.username}"></td>
+                <td th:text = "${post.content"></td>
+                <td th:text = "${post.userID}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+</section>
+
 </body>
+
+<script>
+    img{
+    width: 10%;
+    }
+</script>
 </html>
